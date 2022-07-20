@@ -48,7 +48,7 @@ const Login = () => {
                     position: "top-right",
                 })
 
-                router.push('/auth/reset')
+                router.push('/admin')
             } else if(data?.response?.data?.status == 403) {
                 toast({
                     title: "Error",

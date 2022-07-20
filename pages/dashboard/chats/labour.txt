@@ -1,0 +1,49 @@
+// import DonutChart from 'react-donut-chart';
+// import { Box, Text, Flex, VStack, HStack, useTheme } from '@chakra-ui/react'
+
+
+// const Labour = () => {
+//     const theme = useTheme();
+//     return (
+//         <Flex
+//             width={355}
+//             height={272}
+//             bgColor={theme.colors.brand.white}
+//             borderRadius={7}
+//             border='1px solid #DFE6E9'
+//             justify='center'
+//             align='center'
+//             pt={20}
+//         >
+//             <Text
+//                 pl={6}
+//                 pt={20}
+//             >Labour</Text>
+
+//             <DonutChart
+
+//                 data={[
+//                     {
+//                         label: 'John Doe',
+//                         value: 25,
+//                     },
+//                     {
+//                         label: 'Mary Ann',
+//                         value: 35,
+//                     },
+//                     {
+//                         label: 'Oluwatobi',
+//                         value: 45,
+//                     },
+//                 ]}
+//                 width={300}
+//                 height={300}
+//                 colors={['#00F7BF', '#1BE7FF', '#0063F7']}
+//                 strokeColor=''
+//             />
+//         </Flex>
+
+//     )
+// }
+
+// export default Labour

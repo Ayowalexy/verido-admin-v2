@@ -19,7 +19,7 @@ const CustomButton = ({
     return (
         <Button
             bgColor={theme.colors.brand.primary}
-            width={360}
+            width='100%'
             height='48px'
             fontSize={14}
             mt={10}
