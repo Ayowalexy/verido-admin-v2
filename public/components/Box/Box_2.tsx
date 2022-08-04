@@ -14,48 +14,16 @@ import {
 import Growth from '../../imgs/svgs/growth.svg'
 import CustomButton from '../button';
 
+type dataprops = {
+    data: any
+}
 
 
-const Box_2 = () => {
+const Box_2 = ({data = []}: dataprops) => {
     const theme = useTheme();
-    const data = [
-        {
-            date: 'June 9,2020',
-            business_owners: 'Elon Musk',
-            amount: '$1,322.45',
-            status: 'Active',
-            action: ''
-        },
-        {
-            date: 'June 9,2020',
-            business_owners: 'Christiano Ronaldo',
-            amount: '$1,322.45',
-            status: 'Active',
-            action: ''
-        },
-        {
-            date: 'June 9,2020',
-            business_owners: 'Jeff Bezos',
-            amount: '$1,322.45',
-            status: 'Suspended',
-            action: ''
-        },
-        {
-            date: 'June 9,2020',
-            business_owners: 'Richard Hamilton',
-            amount: '$1,322.45',
-            status: 'Active',
-            action: ''
-        },
-        {
-            date: 'June 9,2020',
-            business_owners: 'Lebron James',
-            amount: '$1,322.45',
-            status: 'Expired',
-            action: ''
-        },
-    ]
 
+    console.log('data', data)
+    
     
     return (
         <Flex
@@ -102,11 +70,14 @@ const Box_2 = () => {
                         </Thead>
                         <Tbody>
                             {
-                                data.map((element, idx) => (
+                                data?.recent_subscription?.map((element: any, idx: any) => {
+                                    const date = new Date(element.dateJoined);
+
+                                    return(
                                     <Tr fontSize={15} fontWeight={300} key={idx}>
-                                        <Td>{element?.date}</Td>
-                                        <Td>{element?.business_owners}</Td>
-                                        <Td>{element?.amount}</Td>
+                                        <Td>{date.toLocaleDateString()}</Td>
+                                        <Td>{element?.full_name}</Td>
+                                        <Td>{20.00}</Td>
                                         <Td
 
                                         >
@@ -117,43 +88,43 @@ const Box_2 = () => {
                                                 <Box
                                                     p='10px 20px'
                                                     bgColor={
-                                                        element.status == 'Active'
+                                                        element?.subscription_status?.type == 'active'
                                                             ? '#EAFFF8'
-                                                            : element.status == 'Suspended'
+                                                            : element?.subscription_status?.type == 'trial'
                                                                 ? '#FFF9E9'
-                                                                : element.status == 'Expired'
+                                                                : element?.subscription_status?.type == 'expired'
                                                                     ? '#FFE7EA'
                                                                     : '#fff'
                                                     }
                                                     color={
-                                                        element.status == 'Active'
+                                                        element?.subscription_status?.type == 'active'
                                                             ? '#00F7BF'
-                                                            : element.status == 'Suspended'
+                                                            : element?.subscription_status?.type == 'trial'
                                                                 ? '#FFD252'
-                                                                : element.status == 'Expired'
+                                                                : element?.subscription_status?.type == 'expired'
                                                                     ? '#FF0022'
                                                                     : '#fff'
                                                     }
                                                     borderRadius={10}
                                                     borderColor={
-                                                        element.status == 'Active'
+                                                        element?.subscription_status?.type == 'active'
                                                             ? '#00F7BF'
-                                                            : element.status == 'Suspended'
+                                                            : element?.subscription_status?.type == 'trial'
                                                                 ? '#FFD252'
-                                                                : element.status == 'Expired'
+                                                                : element?.subscription_status?.type == 'expired'
                                                                     ? '#FF0022'
                                                                     : '#fff'
                                                     }
                                                     borderWidth={1}
                                                     borderStyle='solid'
                                                 >
-                                                    {element?.status}
+                                                    {element?.subscription_status?.type}
                                                 </Box>
                                             </Flex>
                                         </Td>
                                         <Td>{element?.action}</Td>
                                     </Tr>
-                                ))
+                                )})
                             }
 
                         </Tbody>

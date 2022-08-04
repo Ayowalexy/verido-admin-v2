@@ -21,6 +21,7 @@ import { useMutation } from 'react-query';
 import { login } from '../../public/services/network';
 import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const validationSchema = Yup.object().shape({
@@ -36,9 +37,10 @@ const Login = () => {
     const { colors: { brand: { primary, black, yoda } } } = theme;
 
     const { isLoading , mutate} = useMutation(login, {
-        onSuccess: (data: any) => {
-            console.log('data', data?.response?.data?.status)
+        onSuccess: async (data: any) => {
+            console.log('data', data?.data?.token)
             if(data?.status == 200 || data?.status ==  201){
+                await AsyncStorage.setItem("userDetails", JSON.stringify({token: data?.data?.token}))
                 toast({
                     title: "Login",
                     description: "Login successful",

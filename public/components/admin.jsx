@@ -9,17 +9,17 @@ import { TbUsers } from 'react-icons/tb'
 const admin_navigation = [
      {
         label: 'Dashboard',
-        link: '/dashboard/admin',
+        link: '/admin',
         icon: AiOutlineHome
     },
     {
         label: 'Business Owners',
-        link: '/dashboard/business_owners',
+        link: '/dashboard/business',
         icon: FaBusinessTime
     },
     {
         label: 'Consultants',
-        link: '/dashboard/consultant',
+    link: '/dashboard/consultant',
         icon: GrUserNew
     },
     {

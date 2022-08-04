@@ -13,7 +13,9 @@ let colors = {
         danger: 'rgba(255, 0, 34, 1)',
         text: '#636E72',
         primary_faded: '#EBFAFA',
-        bgColor: '#F0F3F5'
+        bgColor: '#F0F3F5',
+        suspend: 'rgba(255, 149, 0, 1)',
+        danger_faded: '#FFE7EA'
     },
     socials: {
         primary: 'rgba(45, 52, 54, 1)',

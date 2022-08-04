@@ -10,13 +10,24 @@ import Box_5 from '../public/components/Box/Box_5';
 import Box_6 from '../public/components/Box/Box_6';
 import Box_7 from '../public/components/Box/Box_7';
 import Box_8 from '../public/components/Box/Box_8';
+import { getAllAnalytics } from '../public/services/network';
+import { useState, useEffect } from 'react';
 
 
 const AdminComponent = (props: any): JSX.Element => {
     const theme = useTheme();
     const { colors: { brand: { black, white, yoda } } } = theme;
+    const [data, setData] = useState({})
 
-    console.log('Admin propr', props)
+    const handleGetAnalytics = async () => {
+        const response = await getAllAnalytics();
+        setData(response)
+        console.log(response)
+    }
+
+    useEffect(() => {
+        handleGetAnalytics();
+    }, [])
 
     return (
         <>
@@ -35,8 +46,8 @@ const AdminComponent = (props: any): JSX.Element => {
             >
                 Your current status and analytics are here
             </Text>
-            <Box_1 />
-            <Box_2 />
+            <Box_1 data={data}/>
+            <Box_2 data={data}/>
             <Box_3 />
             <Box_4 />
             <Box_5 />
@@ -50,9 +61,4 @@ const AdminComponent = (props: any): JSX.Element => {
 
 
 export default AdminComponent
-
-// export function getServerSideProps() {
-//     const str = 'Hello'
-//     return { props: { data: str } }
-//   }
 

@@ -12,13 +12,18 @@ import BusinessOwnners from '../../../pages/dashboard/chats/business_owners';
 import ConsultantChart from '../../../pages/dashboard/chats/consultant';
 import Active from '../../../pages/dashboard/chats/active';
 import Downlinks from '../../../pages/dashboard/chats/downlinks';
+import { formatNumber } from '../../utils/formatter'
+
+type dataProps = {
+    data: object | any
+}
 
 
-
-const Box_1 = () => {
+const Box_1 = ({data}: dataProps) => {
     const theme = useTheme();
     const { colors: { brand: { black, white, yoda } } } = theme;
     const { colors: { chart: { monthly, quarterly, yearly } } } = theme;
+    console.log('Box data', data)
 
     return (
         <Flex
@@ -36,28 +41,28 @@ const Box_1 = () => {
                     mt={7}
                 >
                     <Card
-                        number='1243'
+                        number={data?.no_of_business}
                         card_type='Business Owners'
                     >
                         <BusinessOwnners />
                     </Card>
                     <Card
-                        number='543'
+                        number={data?.no_of_consultants}
                         card_type='Consultants'
                     >
                         <ConsultantChart />
                     </Card>
                     <Card
-                        number='893'
+                        number={data?.no_of_subscribers?.no_of_subscribed}
                         card_type='Active Subscribers'
                     >
-                        <Active type='subscribers' value={0.5} />
+                        <Active type='subscribers' value={(Number(data?.no_of_subscribers?.no_of_subscribed) / 100)} />
                     </Card>
                     <Card
-                        number='622'
+                        number={data?.no_of_consultants}
                         card_type='Active Consultants'
                     >
-                        <Active type='consultante' value={0.8} />
+                        <Active type='consultante' value={(Number(data?.no_of_consultants) / 100)} />
 
                     </Card>
 
@@ -75,7 +80,7 @@ const Box_1 = () => {
                     <Box>
                         <Text color={black} fontSize={16} fontWeight={300}>Subscriptions</Text>
                         <Text color={yoda} fontSize={14} fontWeight={300}>Total</Text>
-                        <Text color={black} fontSize={20} fontWeight={400}>$6.340.42</Text>
+                        <Text color={black} fontSize={20} fontWeight={400}>${formatNumber(data?.amount_subscribed)}</Text>
                     </Box>
                     <Box>
                         {[{ type: 'Yearly', color: yearly }, { type: 'Quarterly', color: quarterly }, { type: 'Monthly', color: monthly }]
@@ -165,7 +170,7 @@ const Box_1 = () => {
                         <Icon as={BsThreeDots} />
 
                     </Flex>
-                    <Downlinks value={0.8} />
+                    <Downlinks total={Number(data?.no_of_consultants) + Number(data?.no_of_business)} value={0.8} />
                     <Flex
                         justify='space-between'
                         mt={10}
@@ -198,7 +203,7 @@ const Box_1 = () => {
                                     color={black}
                                     fontSize={12}
                                 >
-                                    Business
+                                    Consultant
                                 </Text>
                             </>
                         </HStack>

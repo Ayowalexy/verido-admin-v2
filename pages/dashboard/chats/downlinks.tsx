@@ -5,10 +5,11 @@ import { formatNumber } from '../../../public/utils/formatter'
 
 type activeProps = {
     value: number,
-    otherProps?: ButtonProps
+    otherProps?: ButtonProps,
+    total?: number
 }
 
-const Downlinks = ({ value, otherProps }: activeProps) => {
+const Downlinks = ({ value, total, otherProps }: activeProps) => {
     const theme = useTheme();
     return (
         <Box
@@ -39,7 +40,7 @@ const Downlinks = ({ value, otherProps }: activeProps) => {
                     color={theme.colors.brand.black}
                     fontSize={30}
                 >
-                    {formatNumber(3535)}
+                    {formatNumber(total)}
                 </Text>
             </CircularProgressbarWithChildren>
         </Box>
