@@ -17,16 +17,12 @@ import {
   Stack,
   Input,
   InputGroup,
-  InputLeftElement
 } from "@chakra-ui/react";
 import {
   ChevronRightIcon,
   ChevronLeftIcon
 } from "@chakra-ui/icons";
-import { AiOutlineUser } from 'react-icons/ai'
-import Link from 'next/Link'
 import { useRouter } from "next/router";
-import { getAllConsultants } from "../../public/services/network";
 import TableSkeleton from "../../public/components/Skelotons/Table.skeleton";
 
 function CustomTable({ columns, data = [] }) {
