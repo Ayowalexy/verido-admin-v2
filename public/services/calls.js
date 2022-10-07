@@ -75,8 +75,36 @@ const httpPatch = async (url, isAuth, patchBody) => {
         console.log(e)
     }
 }
+
+
+
+const httpPost = async (url, isAuth, postBody) => {
+    const token = await getToken();
+    try {
+        const response = await axios.post(url,JSON.stringify(postBody),
+
+            isAuth
+                ?
+                (
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    }
+                )
+                : {}
+
+        )
+
+        return response
+    } catch (e) {
+        console.log(e)
+    }
+}
 export {
     httpGet,
     httpDelete,
-    httpPatch
+    httpPatch,
+    httpPost
 }

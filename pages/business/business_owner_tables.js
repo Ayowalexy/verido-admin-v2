@@ -23,7 +23,7 @@ import {
   ChevronLeftIcon
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
 
 function CustomTable({ columns, data = [] }) {
 
@@ -113,163 +113,180 @@ function CustomTable({ columns, data = [] }) {
       </Flex>
 
       <>
-        <Table mt={10} {...getTableProps()}>
-          <Thead>
-            {headerGroups.map((headerGroup, idx) => (
-              <Tr key={idx} {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.filter(e => e.Header !== 'ID').map((column, idx) => {
-                  return (
-                    <Th
-                      key={idx}
-                      textAlign='center'
-                      fontWeight={400}
-                      fontSize={14}
-                      textTransform='capitalize'
-                      {...column.getHeaderProps()}>{column.render("Header")}
-                    </Th>
-                  )
-                })}
-              </Tr>
-            ))}
-          </Thead>
-          <Tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
-              prepareRow(row);
-              return (
-                <Tr
-                  key={i}
-                  {...row.getRowProps()}>
-                  {row.cells.map((cell, id) => {
-                    return (
-                      <Td
-                        key={id}
-                        {...cell.getCellProps()}
-                        textAlign='center'
+        {
+          data?.length
+            ?
+            (
+              <>
+                <Table mt={10} {...getTableProps()}>
+                  <Thead>
+                    {headerGroups.map((headerGroup, idx) => (
+                      <Tr key={idx} {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.filter(e => e.Header !== 'ID').map((column, idx) => {
+                          return (
+                            <Th
+                              key={idx}
+                              textAlign='center'
+                              fontWeight={400}
+                              fontSize={14}
+                              textTransform='capitalize'
+                              {...column.getHeaderProps()}>{column.render("Header")}
+                            </Th>
+                          )
+                        })}
+                      </Tr>
+                    ))}
+                  </Thead>
+                  <Tbody {...getTableBodyProps()}>
+                    {page.map((row, i) => {
+                      prepareRow(row);
+                      return (
+                        <Tr
+                          key={i}
+                          {...row.getRowProps()}>
+                          {row.cells.map((cell, id) => {
+                            return (
+                              <Td
+                                key={id}
+                                {...cell.getCellProps()}
+                                textAlign='center'
+                                fontSize={14}
+                                textTransform='capitalize'>
+                                <Flex
+                                  onClick={() => {
+                                    if (cell.column.Header == 'ID') {
+                                      router.push(`/business/${cell.value}`)
+                                    }
+                                  }}
+                                  cursor='pointer'
+                                  justify='center'
+                                  align='center'
+                                >
+                                  <Box
+                                    border='1px solid black'
+                                    width='100%'
+                                    fontWeight={300}
+                                    p='10px 20px'
+                                    bgColor={
+                                      cell.value == 'trial'
+                                        ? '#EAFFF8'
+                                        : cell.value == 'Subscribed'
+                                          ? '#FFF9E9'
+                                          : cell.value == 'expired'
+                                            ? '#FFE7EA'
+                                            : '#fff'
+                                    }
+                                    color={
+                                      cell.value == 'trial'
+                                        ? '#00F7BF'
+                                        : cell.value == 'Subscribed'
+                                          ? '#FFD252'
+                                          : cell.value == 'expired'
+                                            ? '#FF0022'
+                                            : '#2D3436'
+                                    }
+                                    borderRadius={10}
+                                    borderColor={
+                                      cell.value == 'trial'
+                                        ? '#EAFFF8'
+                                        : cell.value == 'Subscribed'
+                                          ? '#FFF9E9'
+                                          : cell.value == 'expired'
+                                            ? '#FFE7EA'
+                                            : '#fff'
+                                    }
+                                    borderWidth={1}
+                                    borderStyle='solid'
+                                  >
+                                    {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
+                                  </Box>
+                                </Flex>
+                              </Td>
+                            );
+                          })}
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+
+                <Flex justifyContent="flex-end" m={4} pb={10} alignItems="center">
+                  <Flex
+                    mr={2}
+                  >
+                    <Tooltip label="Previous Page">
+                      <IconButton
+                        onClick={previousPage}
+                        isDisabled={!canPreviousPage}
+                        icon={<ChevronLeftIcon h={6} w={6} />}
+                      />
+                    </Tooltip>
+                  </Flex>
+
+                  <Flex gap={2} alignItems="center">
+                    {Array(pageSize.length > 10 ? 10 : pageSize.length).fill(1).map((_, idx) => (
+                      <Flex
+                        w={10}
+                        h={10}
+                        gap={2}
+                        key={idx}
+                        bg="white"
+                        borderRadius={10}
+                        justify='center'
+                        align='center'
+                        onClick={() => gotoPage(pageIndex)}
+                        color={idx == pageIndex
+                          ? "#fff"
+                          : "#000"
+                        }
+                        border={idx == pageIndex
+                          ? '1px solid #08A730'
+                          : '1px solid #DFE6E9'
+                        }
+                        bgColor={idx == pageIndex
+                          ? '#08A730'
+                          : '#DFE6E9'
+                        }
                         fontSize={14}
-                        textTransform='capitalize'>
-                        <Flex
-                          onClick={() => {
-                            if (cell.column.Header == 'ID') {
-                              router.push(`/business/${cell.value}`)
-                            }
-                          }}
-                          cursor='pointer'
-                          justify='center'
-                          align='center'
-                        >
-                          <Box
-                            border='1px solid black'
-                            width='100%'
-                            fontWeight={300}
-                            p='10px 20px'
-                            bgColor={
-                              cell.value == 'trial'
-                                ? '#EAFFF8'
-                                : cell.value == 'Subscribed'
-                                  ? '#FFF9E9'
-                                  : cell.value == 'expired'
-                                    ? '#FFE7EA'
-                                    : '#fff'
-                            }
-                            color={
-                              cell.value == 'trial'
-                                ? '#00F7BF'
-                                : cell.value == 'Subscribed'
-                                  ? '#FFD252'
-                                  : cell.value == 'expired'
-                                    ? '#FF0022'
-                                    : '#2D3436'
-                            }
-                            borderRadius={10}
-                            borderColor={
-                              cell.value == 'trial'
-                                ? '#EAFFF8'
-                                : cell.value == 'Subscribed'
-                                  ? '#FFF9E9'
-                                  : cell.value == 'expired'
-                                    ? '#FFE7EA'
-                                    : '#fff'
-                            }
-                            borderWidth={1}
-                            borderStyle='solid'
-                          >
-                            {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
-                          </Box>
-                        </Flex>
-                      </Td>
-                    );
-                  })}
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
+                        fontWeight={400}
+                        _hover={{
+                          bg: "green.300",
+                          color: 'white'
+                        }}
 
-        <Flex justifyContent="flex-end" m={4} pb={10} alignItems="center">
-          <Flex
-            mr={2}
-          >
-            <Tooltip label="Previous Page">
-              <IconButton
-                onClick={previousPage}
-                isDisabled={!canPreviousPage}
-                icon={<ChevronLeftIcon h={6} w={6} />}
-              />
-            </Tooltip>
-          </Flex>
+                      >
+                        <Text fontSize={14}>
+                          {idx + 1}
+                        </Text>
+                      </Flex>
+                    ))}
 
-          <Flex gap={2} alignItems="center">
-            {Array(pageSize.length > 10 ? 10 : pageSize.length).fill(1).map((_, idx) => (
-              <Flex
-                w={10}
-                h={10}
-                gap={2}
-                key={idx}
-                bg="white"
-                borderRadius={10}
-                justify='center'
+                  </Flex>
+                  <Flex
+                    ml={2}
+                  >
+                    <Tooltip label="Next Page">
+                      <IconButton
+                        onClick={nextPage}
+                        isDisabled={!canNextPage}
+                        icon={<ChevronRightIcon h={6} w={6} />}
+                      />
+                    </Tooltip>
+
+                  </Flex>
+                </Flex>
+              </>
+            ) :
+            (
+              <Flex justify='center'
                 align='center'
-                onClick={() => gotoPage(pageIndex)}
-                color={idx == pageIndex
-                  ? "#fff"
-                  : "#000"
-                }
-                border={idx == pageIndex
-                  ? '1px solid #08A730'
-                  : '1px solid #DFE6E9'
-                }
-                bgColor={idx == pageIndex
-                  ? '#08A730'
-                  : '#DFE6E9'
-                }
-                fontSize={14}
-                fontWeight={400}
-                _hover={{
-                  bg: "green.300",
-                  color: 'white'
-                }}
-
+                height='100%'
+                width='100%'
               >
-                <Text fontSize={14}>
-                  {idx + 1}
-                </Text>
+                <Image src="/imgs/svgs/empty.svg" width={200} height={200} />
               </Flex>
-            ))}
-
-          </Flex>
-          <Flex
-            ml={2}
-          >
-            <Tooltip label="Next Page">
-              <IconButton
-                onClick={nextPage}
-                isDisabled={!canNextPage}
-                icon={<ChevronRightIcon h={6} w={6} />}
-              />
-            </Tooltip>
-
-          </Flex>
-        </Flex>
+            )
+        }
 
       </>
     </Box>
@@ -312,6 +329,7 @@ function BusinessOwnerTable({ data }) {
     []
   );
 
+  console.log('dattaaaa', data)
 
   return <CustomTable columns={columns} data={data} />;
 }

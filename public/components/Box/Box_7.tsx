@@ -1,18 +1,23 @@
+import React, { useState, useEffect } from 'react';
 import {
     Flex,
     Box,
     Text,
     useTheme,
-    Wrap,
-    WrapItem,
     Icon,
     HStack
 } from '@chakra-ui/react';
 import { BsCalendar } from 'react-icons/bs'
 import MoneyInMoneyOut from '../../../pages/dashboard/chats/money_in_money_out';
 
-const Box_7 = () => {
+type dataProps = {
+    data: object | any;
+  };
+
+
+const Box_7 = ({data}: dataProps) => {
     const theme = useTheme();
+    
     return (
         <Box
             width='100%'
@@ -88,7 +93,7 @@ const Box_7 = () => {
                 </Flex>
             </Flex>
 
-            <MoneyInMoneyOut />
+            <MoneyInMoneyOut data={data}/>
 
 
         </Box>

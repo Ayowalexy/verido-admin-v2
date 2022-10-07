@@ -54,7 +54,7 @@ const Card = ({
                 fontSize={28}
                 color={black}
             >
-                {formatNumber(number)}
+                {number}
             </Text>
             <Text
                 fontWeight={300}

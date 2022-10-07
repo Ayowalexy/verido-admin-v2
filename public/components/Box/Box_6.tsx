@@ -11,8 +11,16 @@ import {
 import { BsCalendar } from 'react-icons/bs'
 import CashMovement from '../../../pages/dashboard/chats/cash-movement';
 
+type boxProps = {
+    moneyin: number,
+    moneyout: number,
+}
 
-const Box_6 = () => {
+type dataProps = {
+    data: object | any;
+  };
+
+const Box_6 = ({ data }: dataProps) => {
     const theme = useTheme();
     return (
         <Box
@@ -70,7 +78,7 @@ const Box_6 = () => {
                 </Flex>
             </Flex>
 
-            <CashMovement />
+            <CashMovement data={data} />
 
 
         </Box>

@@ -196,21 +196,22 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
                         </Text>
                         {
                             [
+                                
                                 {
-                                    title: 'Enterprise Name',
-                                    value: profileData?.businessName
+                                    title: 'Consultant ID',
+                                    value: profileData?.consultant_id
                                 },
                                 {
-                                    title: 'Institution',
-                                    value: profileData?.institution
-                                },
-                                {
-                                    title: 'Admin Name',
-                                    value: 'John Doe'
+                                    title: 'Email',
+                                    value: profileData?.email
                                 },
                                 {
                                     title: 'Phone',
                                     value: profileData?.mobile_number
+                                },
+                                {
+                                    title: 'Date Joined',
+                                    value: new Date(profileData?.createdAt).toLocaleDateString()
                                 },
 
                             ].map((element, idx) => (
@@ -240,7 +241,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
                             [
                                 {
                                     title: 'Status',
-                                    value: profileData?.suspended ? 'Active' : 'Suspended'
+                                    value: !profileData?.suspended ? 'Active' : 'Suspended'
                                 },
                                 {
                                     title: 'Rating',

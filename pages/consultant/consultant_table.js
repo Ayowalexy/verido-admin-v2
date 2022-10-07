@@ -23,6 +23,7 @@ import {
   ChevronLeftIcon
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import TableSkeleton from "../../public/components/Skelotons/Table.skeleton";
 
 function CustomTable({ columns, data = [] }) {
@@ -54,7 +55,7 @@ function CustomTable({ columns, data = [] }) {
     usePagination
   )
 
-  
+
 
 
   const theme = useTheme();
@@ -111,156 +112,181 @@ function CustomTable({ columns, data = [] }) {
           ?
           (
             <>
-              <Table {...getTableProps()}>
-                <Thead
-                  textAlign='center'
-                >
-                  {headerGroups.map((headerGroup, idx) => (
-                    <Tr key={idx} {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.filter(e => e.Header !== 'ID' && e.Header !== 'Status').map((column, id_) => (
-                        <Th
-                          key={id_}
-                          textAlign='center'
-                          fontWeight={400}
-                          fontSize={14}
-                          textTransform='capitalize'
-                          {...column.getHeaderProps()}>{column.render("Header")}
-                        </Th>
-                      ))}
-                    </Tr>
-                  ))}
-                </Thead>
-                <Tbody {...getTableBodyProps()}>
-                  {page.map((row, i) => {
-                    prepareRow(row);
-                    return (
-                      <Tr key={i} {...row.getRowProps()}>
-                        {row.cells.map((cell, id) => {
+
+              {
+                data?.length
+                  ?
+                  (
+                    <Table {...getTableProps()}>
+                      <Thead
+                        textAlign='center'
+                      >
+                        {headerGroups.map((headerGroup, idx) => (
+                          <Tr key={idx} {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.filter(e => e.Header !== 'ID' && e.Header !== 'Status').map((column, id_) => (
+                              <Th
+                                key={id_}
+                                textAlign='center'
+                                fontWeight={400}
+                                fontSize={14}
+                                textTransform='capitalize'
+                                {...column.getHeaderProps()}>{column.render("Header")}
+                              </Th>
+                            ))}
+                          </Tr>
+                        ))}
+                      </Thead>
+                      <Tbody {...getTableBodyProps()}>
+                        {page.map((row, i) => {
+                          prepareRow(row);
                           return (
-                            <Td 
-                            key={id}
-                            onClick={() => {
-                              if(cell.column.Header == 'ID'){
-                                router.push(`/consultant/${cell.value}`)
-                              }
-                            }}
-                            {...cell.getCellProps()}>
-                                <Flex
-                                  cursor='pointer'
-                                  justify='center'
-                                  align='center'
-                                >
-                                  <Box
-                                    fontWeight={300}
-                                    p='10px 20px'
-                                    bgColor={
-                                      cell.value == true
-                                        ? '#EAFFF8'
-                                        : cell.value == 'Suspended'
-                                          ? '#FFF9E9'
-                                          : cell.value == 'Pending Approval'
-                                            ? '#FFE7EA'
-                                            : '#fff'
-                                    }
-                                    color={
-                                      cell.value == 'Active'
-                                        ? '#00F7BF'
-                                        : cell.value == 'Suspended'
-                                          ? '#FFD252'
-                                          : cell.value == 'Pending Approval'
-                                            ? '#FF0022'
-                                            : '#2D3436'
-                                    }
-                                    borderRadius={10}
-                                    borderColor={
-                                      cell.value == 'Active'
-                                        ? '#00F7BF'
-                                        : cell.value == 'Suspended'
-                                          ? '#FFD252'
-                                          : cell.value == 'Pending Approval'
-                                            ? '#FF0022'
-                                            : '#fff'
-                                    }
-                                    borderWidth={1}
-                                    borderStyle='solid'
-                                  >
-                                    {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
-                                  </Box>
-                                </Flex>
-                            </Td>
+                            <Tr key={i} {...row.getRowProps()}>
+                              {row.cells.map((cell, id) => {
+                                return (
+                                  <Td
+                                    key={id}
+                                    onClick={() => {
+                                      if (cell.column.Header == 'ID') {
+                                        router.push(`/consultant/${cell.value}`)
+                                      }
+                                    }}
+                                    {...cell.getCellProps()}>
+                                    <Flex
+                                      cursor='pointer'
+                                      justify='center'
+                                      align='center'
+                                    >
+                                      <Box
+                                        fontWeight={300}
+                                        p='10px 20px'
+                                        bgColor={
+                                          cell.value == true
+                                            ? '#EAFFF8'
+                                            : cell.value == 'Suspended'
+                                              ? '#FFF9E9'
+                                              : cell.value == 'Pending Approval'
+                                                ? '#FFE7EA'
+                                                : '#fff'
+                                        }
+                                        color={
+                                          cell.value == 'Active'
+                                            ? '#00F7BF'
+                                            : cell.value == 'Suspended'
+                                              ? '#FFD252'
+                                              : cell.value == 'Pending Approval'
+                                                ? '#FF0022'
+                                                : '#2D3436'
+                                        }
+                                        borderRadius={10}
+                                        borderColor={
+                                          cell.value == 'Active'
+                                            ? '#00F7BF'
+                                            : cell.value == 'Suspended'
+                                              ? '#FFD252'
+                                              : cell.value == 'Pending Approval'
+                                                ? '#FF0022'
+                                                : '#fff'
+                                        }
+                                        borderWidth={1}
+                                        borderStyle='solid'
+                                      >
+                                        {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
+                                      </Box>
+                                    </Flex>
+                                  </Td>
+                                );
+                              })}
+                            </Tr>
                           );
                         })}
-                      </Tr>
-                    );
-                  })}
-                </Tbody>
-              </Table>
+                      </Tbody>
+                    </Table>
 
-              <Flex justifyContent="flex-end" m={4} alignItems="center">
-                <Flex
-                  mr={2}
-                >
-                  <Tooltip label="Previous Page">
-                    <IconButton
-                      onClick={previousPage}
-                      isDisabled={!canPreviousPage}
-                      icon={<ChevronLeftIcon h={6} w={6} />}
-                    />
-                  </Tooltip>
-                </Flex>
-
-                <Flex gap={2} alignItems="center">
-                  {Array(pageOptions.length).fill(1).map((_, idx) => (
-                    <Flex
-                      w={10}
-                      h={10}
-                      gap={2}
-                      key={idx}
-                      bg="white"
-                      borderRadius={10}
-                      justify='center'
+                  )
+                  :
+                  (
+                    <Flex justify='center'
                       align='center'
-                      onClick={() => gotoPage(pageIndex)}
-                      color={idx == pageIndex
-                        ? "#fff"
-                        : "#000"
-                      }
-                      border={idx == pageIndex
-                        ? '1px solid #08A730'
-                        : '1px solid #DFE6E9'
-                      }
-                      bgColor={idx == pageIndex
-                        ? '#08A730'
-                        : '#DFE6E9'
-                      }
-                      fontSize={14}
-                      fontWeight={400}
-                      _hover={{
-                        bg: "green.300",
-                        color: 'white'
-                      }}
-
+                      height='100%'
+                      width='100%'
                     >
-                      <Text fontSize={14}>
-                        {idx + 1}
-                      </Text>
+                      <Image src="/imgs/svgs/empty.svg" width={200} height={200} />
                     </Flex>
-                  ))}
+                  )
+              }
 
-                </Flex>
-                <Flex
-                  ml={2}
-                >
-                  <Tooltip label="Next Page">
-                    <IconButton
-                      onClick={nextPage}
-                      isDisabled={!canNextPage}
-                      icon={<ChevronRightIcon h={6} w={6} />}
-                    />
-                  </Tooltip>
+              {
+                data?.length
+                  ?
+                  (
+                    <Flex justifyContent="flex-end" m={4} alignItems="center">
+                      <Flex
+                        mr={2}
+                      >
+                        <Tooltip label="Previous Page">
+                          <IconButton
+                            onClick={previousPage}
+                            isDisabled={!canPreviousPage}
+                            icon={<ChevronLeftIcon h={6} w={6} />}
+                          />
+                        </Tooltip>
+                      </Flex>
 
-                </Flex>
-              </Flex>
+                      <Flex gap={2} alignItems="center">
+                        {Array(pageOptions.length).fill(1).map((_, idx) => (
+                          <Flex
+                            w={10}
+                            h={10}
+                            gap={2}
+                            key={idx}
+                            bg="white"
+                            borderRadius={10}
+                            justify='center'
+                            align='center'
+                            onClick={() => gotoPage(pageIndex)}
+                            color={idx == pageIndex
+                              ? "#fff"
+                              : "#000"
+                            }
+                            border={idx == pageIndex
+                              ? '1px solid #08A730'
+                              : '1px solid #DFE6E9'
+                            }
+                            bgColor={idx == pageIndex
+                              ? '#08A730'
+                              : '#DFE6E9'
+                            }
+                            fontSize={14}
+                            fontWeight={400}
+                            _hover={{
+                              bg: "green.300",
+                              color: 'white'
+                            }}
+
+                          >
+                            <Text fontSize={14}>
+                              {idx + 1}
+                            </Text>
+                          </Flex>
+                        ))}
+
+                      </Flex>
+                      <Flex
+                        ml={2}
+                      >
+                        <Tooltip label="Next Page">
+                          <IconButton
+                            onClick={nextPage}
+                            isDisabled={!canNextPage}
+                            icon={<ChevronRightIcon h={6} w={6} />}
+                          />
+                        </Tooltip>
+
+                      </Flex>
+                    </Flex>
+                  )
+                  : null
+              }
             </>
           )
           :
@@ -272,26 +298,27 @@ function CustomTable({ columns, data = [] }) {
   );
 }
 
-function ConsultantTable({data}) {
+
+function ConsultantTable({ data }) {
   const columns = React.useMemo(
     () => [
 
 
       {
-        Header: "Enterprise Name",
-        accessor: "businessName"
+        Header: "Consultant ID",
+        accessor: "consultant_id"
       },
       {
         Header: "Name",
         accessor: "username"
       },
       {
-        Header: "Institution",
-        accessor: "institution"
+        Header: "Mobile Number",
+        accessor: "mobile_number"
       },
       {
-        Header: "Date Joined",
-        accessor: "dateJoined"
+        Header: "Email",
+        accessor: "email"
       },
       {
         Header: "Status",
@@ -306,8 +333,8 @@ function ConsultantTable({data}) {
     []
   );
 
- 
-  return <CustomTable columns={columns} data={data}  />;
+
+  return <CustomTable columns={columns} data={data} />;
 }
 
 export default ConsultantTable;

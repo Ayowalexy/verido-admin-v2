@@ -1,23 +1,28 @@
-const baseUrl = 'http://localhost:5000'
-const liveUrl = 'https://verido-v4.herokuapp.com'
+const baseUrl = 'http://localhost:8080'
+// const liveUrl = 'https://verido-v4.herokuapp.com'
+const liveUrl = 'https://verido-admin-server.herokuapp.com'
 
-const url = liveUrl
+const url = liveUrl;
 
 const urls = {
     AUTH: {
-        register: `${url}/user/register`,
-        login: `${url}/user/login`,
-        reset: `${url}/user/reset`,
-        socials: `${url}/user/socials`
+        register: `${url}/admin/register`,
+        login: `${url}/admin/login`,
+        reset: `${url}/admin/reset`,
+        socials: `${url}/admin/socials`
     },
     BUSINESS: {
-        business: `${url}/admin/business`,
+        business: `${url}/business`,
     },
     CONSULTANT: {
-        consultants: `${url}/admin/consultant`
+        consultants: `${url}/consultant`,
+        add_consultant: `${url}/add-consultant`
     },
     ANALYTICS: {
-        analytics: `${url}/user/analytics`
+        analytics: `${url}/analytics`
+    },
+    SUBSCRIPTION: {
+        subscription: `${url}/subscription`
     }
 }
 
