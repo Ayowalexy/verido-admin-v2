@@ -7,10 +7,13 @@ import Box_5 from "../public/components/Box/Box_5";
 import Box_6 from "../public/components/Box/Box_6";
 import Box_7 from "../public/components/Box/Box_7";
 import Box_8 from "../public/components/Box/Box_8";
+import Box_3_1 from "../public/components/Box/Box_3_1";
 import { getAllAnalytics } from "../public/services/network";
 import { useState, useEffect, useContext } from "react";
 import { UserRoleContext } from "../public/context/user.context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 
 const AdminComponent = (props: any): JSX.Element => {
   const theme = useTheme();
@@ -21,6 +24,7 @@ const AdminComponent = (props: any): JSX.Element => {
   } = theme;
   const [data, setData] = useState<object | any>({});
   const { userRole } = useContext(UserRoleContext);
+  const [username, setUsername] = useState<string | undefined>('');
   const [role, setRole] = useState<string | null>("");
 
   const handleGetAnalytics = async () => {
@@ -35,6 +39,8 @@ const AdminComponent = (props: any): JSX.Element => {
 
   const getRole = async () => {
     const role = await AsyncStorage.getItem("accountType");
+    const currentUser = await AsyncStorage.getItem('currentUser') || {};
+    setUsername(JSON.parse(currentUser.toString())?.full_name);
     setRole(role);
     return role;
   };
@@ -77,6 +83,7 @@ const AdminComponent = (props: any): JSX.Element => {
 
   const Consultant = () => (
     <>
+      <Box_3_1 data={data} />
       <Box_5 />
       <Box_6
         data={{
@@ -106,7 +113,7 @@ const AdminComponent = (props: any): JSX.Element => {
   return (
     <>
       <Text pt={10} fontWeight={400} fontSize={27} color={black}>
-        Welcome back, Edward 👋
+        Welcome back, {username} 👋
       </Text>
       <Text fontWeight={300} fontSize={14} color={black}>
         Your current status and analytics are here

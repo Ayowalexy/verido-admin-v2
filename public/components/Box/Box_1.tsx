@@ -23,7 +23,6 @@ const Box_1 = ({ data }: dataProps) => {
       chart: { monthly, quarterly, yearly },
     },
   } = theme;
-  console.log("Box data", data);
 
   return (
     <Flex gap={10}>

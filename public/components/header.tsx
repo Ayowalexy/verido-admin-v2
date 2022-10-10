@@ -56,7 +56,7 @@ const Header = () => {
                     w={6}
                     as={VscBellDot}
                 />
-                <Avatar size='sm' name='Dan Abrahmov' src='https://bit.ly/dan-abramov' />
+                <Avatar size='sm' name='Dan Abrahmov' src='' />
 
             </Flex>
         </Flex>
