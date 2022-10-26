@@ -18,6 +18,7 @@ import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { UserRoleContext } from "../context/user.context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BiLogOutCircle } from 'react-icons/bi';
 
 type NavigationProps = {
   activeElement: string;
@@ -39,6 +40,11 @@ const Navigation = ({ activeElement }: NavigationProps) => {
       brand: { primary, black, primary_faded, text, white },
     },
   } = theme;
+
+
+  const handleLogout = () => {
+    router.push('/auth/login')
+  }
 
   useEffect(() => {
     (async () => {
@@ -95,6 +101,18 @@ const Navigation = ({ activeElement }: NavigationProps) => {
               {element.label}
             </ListItem>
           ))}
+          <ListItem 
+                        padding="14px 13px"
+
+          position={'absolute'} bottom={10} color={'red'} onClick={handleLogout} cursor='pointer'>
+          <ListIcon
+                w={25}
+                h={25}
+                as={BiLogOutCircle}
+                color={'red'}
+              />
+              Logout
+          </ListItem>
         </List>
       </Box>
     </Box>

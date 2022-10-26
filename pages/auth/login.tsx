@@ -204,8 +204,8 @@ const Login = () => {
                     <Divider />
                 </Flex>
 
-                <Google />
-                <FacebookLogin />
+                {/* <Google />
+                <FacebookLogin /> */}
             </>
         </AuthLayout>
     )

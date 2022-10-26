@@ -2,7 +2,7 @@ const baseUrl = 'http://localhost:8080'
 // const liveUrl = 'https://verido-v4.herokuapp.com'
 const liveUrl = 'https://verido-admin-server.herokuapp.com'
 
-const url = baseUrl;
+const url = liveUrl;
 
 const urls = {
     AUTH: {
