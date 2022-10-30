@@ -71,7 +71,7 @@ export default function ConsultantModal({ open, setOpen }: modalProps) {
           <ModalCloseButton />
           <ModalBody>
             <VStack width="100%">
-              {consultants.map((ele, idx) => (
+              {consultants?.map((ele, idx) => (
                 <HStack
                   key={idx}
                   onClick={() => setSelected(ele._id)}

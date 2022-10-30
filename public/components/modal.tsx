@@ -14,6 +14,7 @@ import {
     Text,
     useTheme
 } from '@chakra-ui/react'
+import React from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 type contentProps = {
@@ -24,11 +25,13 @@ type contentProps = {
 
 type modalProps = {
     isOpen: boolean,
-    buttonProps: ButtonProps,
-    modalContent: contentProps
+    modalContent: contentProps;
+    setAction: React.Dispatch<React.SetStateAction<string>>;
+    onClick: () => void;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const VeridoModal = ({ isOpen, buttonProps, modalContent }: modalProps) => {
+const VeridoModal = ({ isOpen,  modalContent, setAction, onClick, setIsOpen }: modalProps) => {
     const { onClose } = useDisclosure();
     const theme = useTheme();
     return (
@@ -43,7 +46,7 @@ const VeridoModal = ({ isOpen, buttonProps, modalContent }: modalProps) => {
                             <Text fontWeight={500} fontSize={16}>{modalContent.title}</Text>
                         </HStack>
                     </ModalHeader>
-                    <ModalCloseButton {...buttonProps} />
+                    <ModalCloseButton onClick={() => setIsOpen(false)} />
                     <ModalBody>
                         {modalContent.body}
                     </ModalBody>
@@ -59,10 +62,19 @@ const VeridoModal = ({ isOpen, buttonProps, modalContent }: modalProps) => {
                                 color: theme.colors.brand.white
                             }}
                             mr={3} 
-                            {...buttonProps}>
+                            onClick={() => {
+                                setAction("")
+                                setIsOpen(false)
+                            }}
+                            >
                             No
                         </Button>
-                        <Button color='#fff' bgColor={theme.colors.brand.suspend} mr={3} {...buttonProps}>
+                        <Button 
+                            color='#fff' 
+                            bgColor={theme.colors.brand.suspend} 
+                            mr={3} 
+                            onClick={() => onClick()}
+                            >
                             Yes
                         </Button>
                     </ModalFooter>

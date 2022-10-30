@@ -40,13 +40,13 @@ const Box_1 = ({ data }: dataProps) => {
           >
             <Active
               type="subscribers"
-              value={Number(data?.no_of_subscribers?.no_of_subscribed) / 100}
+              value={(Number(data?.no_of_subscribers?.no_of_subscribed) / 100) || 0}
             />
           </Card>
           <Card number={data?.no_of_consultants} card_type="Active Consultants">
             <Active
               type="consultante"
-              value={Number(data?.no_of_consultants) / 100}
+              value={(Number(data?.no_of_consultants) / 100) || 0}
             />
           </Card>
         </Flex>

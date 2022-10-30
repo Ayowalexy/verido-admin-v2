@@ -11,6 +11,14 @@ export type businessProps = {
     __v?: number
 }
 
+export type newBusinessProps = {
+    full_name?: string;
+    email?: string;
+    username?: string;
+    password?: string;
+    consultant_id?: string;
+}
+
 export type subProps = {
     _id?: string;
     expires: string;
@@ -24,5 +32,7 @@ export type consultantProps = {
     consultant_id?: string;
     email?: string;
     mobile_number?: string;
-    username?: string
+    username?: string;
+    password?: string;
 }
+

@@ -60,7 +60,7 @@ const Box_3 = ({ data }: dataprops) => {
               </Text>
               <HStack>
                 <Text fontWeight={700} color={black} fontSize={20}>
-                  ${formatNumber(data?.alldata?.topBusiness)}
+                  ${data?.alldata?.topBusiness ? formatNumber(data?.alldata?.topBusiness) : 0.00}
                 </Text>
                 <Text color={yoda} fontWeight={300} fontSize={14}>
                   increase from last month
@@ -116,7 +116,7 @@ const Box_3 = ({ data }: dataprops) => {
                 This month
               </Text>
               <Text color={black} fontSize={20} fontWeight={700}>
-                ${formatNumber(data?.alldata?.allTotal)}
+                ${data?.alldata?.allTotal ? formatNumber(data?.alldata?.allTotal) : 0.00}
               </Text>
             </Box>
             <Box>

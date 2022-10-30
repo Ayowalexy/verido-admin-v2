@@ -3,17 +3,17 @@ import {
     Box
 } from '@chakra-ui/react';
 import VeridoBreadCrump from '../../public/components/breadcrumb';
-import ConsultantTable from './consultant_table';
 import TableSkeleton from '../../public/components/Skelotons/Table.skeleton';
 import { useState, useEffect } from 'react';
 import { getAllConsultants, getAllPartners } from '../../public/services/network';
+import PartnerTable from '../partner/partner_table'
 
-const ConsultantComponent = () => {
+const PartnersComponent = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([])
     const handleGetAllConsultants = async () => {
         setIsLoading(true)
-        const res = await getAllConsultants();
+        const res = await getAllPartners();
         setData(res)
         setIsLoading(false);
       }
@@ -26,13 +26,13 @@ const ConsultantComponent = () => {
             <VeridoBreadCrump 
                 items={[
                     { name: 'Home', to: '/admin', current: true}, 
-                    {name: 'Consultants', to: '/dashboard/consultant', current: false}
+                    {name: 'Partners', to: '/dashboard/partners', current: false}
                     ,]}
                  />
                  {
                     !isLoading
                     ?
-                    <ConsultantTable data={data} />
+                    <PartnerTable data={data} />
                     : 
                     <TableSkeleton isLoading={isLoading} />
                  }
@@ -40,4 +40,4 @@ const ConsultantComponent = () => {
     )
 }
 
-export default ConsultantComponent
+export default PartnersComponent

@@ -52,7 +52,7 @@ const BusinessOwnerConsultant = ({ name, id, enterprise_name, moneyin, moneyout,
           {name && id ? (
             <>
               <Text fontWeight={400} fontSize={24}>
-                {id}
+                {id.substr(0, 6)}
               </Text>
               <Text pt={70} fontWeight={500} fontSize={32}>
                 {enterprise_name}

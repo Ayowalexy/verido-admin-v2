@@ -17,6 +17,8 @@ import {
   Stack,
   Input,
   InputGroup,
+  HStack,
+  VStack
 } from "@chakra-ui/react";
 import {
   ChevronRightIcon,
@@ -24,17 +26,26 @@ import {
 } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import CSV from '../../public/components/csv';
+import PDF from '../../public/components/pdf';
+import { BiExport } from 'react-icons/bi'
 
-function CustomTable({ columns, data = [] }) {
+
+function CustomTable({ columns, showExport, data = [] }) {
 
   const [current, setCurrent] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
+  const [tableHeader, setTableHead] = useState([]);
+  const [tableBody, setTableBody] = useState([]);
   const router = useRouter()
 
   const {
     getTableProps,
+    getHeaderProps,
     getTableBodyProps,
     headerGroups,
+    flatHeaders,
+    flatRows,
     prepareRow,
     page,
     canPreviousPage,
@@ -45,7 +56,8 @@ function CustomTable({ columns, data = [] }) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize }
+    state: { pageIndex, pageSize },
+    ...others
   } = useTable(
     {
       columns,
@@ -60,10 +72,19 @@ function CustomTable({ columns, data = [] }) {
   }, [])
 
   const theme = useTheme();
+
+  useEffect(() => {
+    if (flatHeaders.length && flatRows.length) {
+      const data = flatHeaders.map(ele => ele.Header)
+      const data_ = flatRows.map(ele => ele.values).map(ele => [ele[data[0]], ele[data[1]], ele[data[2]], ele[data[3]], ele[data[4]]])
+      setTableHead(data)
+      setTableBody(data_)
+    }
+  }, [flatHeaders])
   return (
     <Box
       width='100%'
-      height={756}
+      height={656}
       bgColor={theme.colors.brand.white}
       borderRadius={7}
       border='1px solid #DFE6E9'
@@ -79,7 +100,7 @@ function CustomTable({ columns, data = [] }) {
             color={theme.colors.brand.black}
             fontSize={20}
           >
-            Business Owners
+            {showExport ? 'All Verido users' : 'Business Owners'}
           </Text>
           <Text
             fontWeight={300}
@@ -87,12 +108,24 @@ function CustomTable({ columns, data = [] }) {
             fontSize={16}
             pt={2}
           >
-            List of business owners available
+            {showExport ? 'List of all business, partner and consultant account' : 'List of business owners available'}
           </Text>
         </Box>
         <Flex
           gap={5}
         >
+          {showExport && (
+            <HStack spacing={5} mt={-5}>
+              <HStack cursor='pointer' border='1px solid black' padding={'5px 20px'} borderRadius={10}>
+                <BiExport />
+                <CSV data={data} />
+              </HStack>
+              <HStack cursor='pointer' border='1px solid black' padding={'5px 20px'} borderRadius={10}>
+                <BiExport />
+                <PDF header={tableHeader} body={tableBody} data={data} />
+              </HStack>
+            </HStack>
+          )}
           <Select placeholder='Filter'>
             <option value='option1'>Option 1</option>
             <option value='option2'>Option 2</option>
@@ -198,7 +231,14 @@ function CustomTable({ columns, data = [] }) {
                                     borderWidth={1}
                                     borderStyle='solid'
                                   >
-                                    {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
+                                    {cell.column.Header === 'ID' && showExport
+                                      ? null
+                                      :
+                                      <>
+                                        {cell.column.Header !== 'ID' ? cell.render('Cell') : 'View'}
+                                      </>
+                                    }
+
                                   </Box>
                                 </Flex>
                               </Td>
@@ -295,35 +335,60 @@ function CustomTable({ columns, data = [] }) {
 
 
 
-function BusinessOwnerTable({ data }) {
+function BusinessOwnerTable({ data, showExport }) {
   const columns = React.useMemo(
     () => [
 
 
       {
-        Header: "Enterprise Name",
-        accessor: "business.name"
+        Header: "Full name",
+        accessor: a => (
+          a.full_name
+            ? a.full_name
+            : a.username
+              ? a.username
+              : 'No name'
+        )
       },
       {
-        Header: "Name",
-        accessor: "full_name"
+        Header: "Mobile Number",
+        accessor: a => (
+          a.mobile_number
+            ? a.mobile_number
+            : a.phone_number
+              ? a.phone_number
+              : 'No Phone number'
+        )
       },
       {
-        Header: "Expires",
-        accessor: "subscription_status.expires"
+        Header: "Account type",
+        accessor: a => (
+          a.account_type
+            ? a.account_type.concat(' Account')
+            : a.hasOwnProperty('rating')
+              ? 'Consultant Account'
+              : 'Business Account'
+        )
       },
       {
         Header: "Date Joined",
-        accessor: "dateJoined"
+        accessor: a => (
+          a.dateJoined
+            ? new Date(a.dateJoined).toLocaleDateString()
+            : a.createdAt
+              ? new Date(a.createdAt).toLocaleDateString()
+              : new Date().toLocaleDateString()
+        )
       },
       {
-        Header: "Status",
-        accessor: "subscription_status.type"
+        Header: "email",
+        accessor: "email"
       },
       {
         Header: "ID",
         accessor: "_id"
-      }
+      },
+
     ],
 
     []
@@ -331,7 +396,7 @@ function BusinessOwnerTable({ data }) {
 
   console.log('dattaaaa', data)
 
-  return <CustomTable columns={columns} data={data} />;
+  return <CustomTable columns={columns} showExport={showExport} data={data} />;
 }
 
 

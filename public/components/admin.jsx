@@ -33,7 +33,7 @@ const admin_navigation = [
   },
   {
     label: "All Users",
-    link: "/dashboard/all_users",
+    link: "/all-user",
     icon: TbUsers,
   },
   {
@@ -78,18 +78,13 @@ export const partner_navigation = [
     icon: GrUserNew,
   },
   {
-    label: "Partners",
-    link: "/dashboard/partners",
-    icon: RiUserSettingsLine,
-  },
-  {
     label: "Experts",
     link: "/dashboard/experts",
     icon: BiUserCheck,
   },
   {
     label: "All Users",
-    link: "/dashboard/all_users",
+    link: "/all-user",
     icon: TbUsers,
   },
   {
@@ -112,7 +107,7 @@ export const expert_navigation = [
   },
   {
     label: "All Users",
-    link: "/dashboard/all_users",
+    link: "/all-user",
     icon: TbUsers,
   },
   {

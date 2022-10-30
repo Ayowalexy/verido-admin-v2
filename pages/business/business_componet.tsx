@@ -5,25 +5,38 @@ import {
 import VeridoBreadCrump from '../../public/components/breadcrumb';
 import BusinessOwnerTable from './business_owner_tables';
 import { useState, useEffect } from 'react';
-import { getAllBusiness } from '../../public/services/network';
+import { getAllBusiness, getAllConsultantBusiness, getPartnerBusiness } from '../../public/services/network';
 import TableSkeleton from '../../public/components/Skelotons/Table.skeleton';
 import ProfileSkeleton from '../../public/components/Skelotons/Profile.Skeleton';
+import { getUser } from '../../public/utils/utils';
+import getRole from '../../public/utils/utils';
 
 const BusinessComponent = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([])
-    const allBusiness = async () => {
-        setIsLoading(true)
-        const res = await getAllBusiness();
+ 
 
-        setData(res)
-        setIsLoading(false)
-    }
-
-    console.log('data', data)
     useEffect(() => {
-        allBusiness()
-    }, [])
+        (async () => {
+            setIsLoading(true)
+
+            const user = await getUser();
+            const userId = user?._id;
+            const role = await getRole();
+            if(role === 'Consultant'){
+                const res = await getAllConsultantBusiness(userId);
+                setData(res)
+            } else if(role === 'Partner'){
+                const res = await getPartnerBusiness(userId);
+                setData(res)
+            } else if(role === 'Admin'){
+                const res = await getAllBusiness();
+                setData(res)
+            }
+            setIsLoading(false)
+
+        })()
+    },[])
 
     return (
         <Box>
@@ -36,7 +49,7 @@ const BusinessComponent = () => {
             {
                 !isLoading
                 ?
-                <BusinessOwnerTable data={data} />
+                <BusinessOwnerTable showExport={false} data={data} />
                 :
                 <TableSkeleton isLoading={isLoading} />
             }

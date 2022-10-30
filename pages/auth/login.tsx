@@ -46,7 +46,6 @@ const Login = () => {
                 await AsyncStorage.setItem("userDetails", JSON.stringify({token: data?.data?.token}))
                 const accountType = data?.data?.role;
                 await AsyncStorage.setItem('currentUser', JSON.stringify(data?.data?.user))
-                console.log("accountType", accountType)
                 setUserRole(accountType);
                 await AsyncStorage.setItem('accountType', accountType)
                 toast({

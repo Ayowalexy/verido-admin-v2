@@ -147,7 +147,7 @@ function CustomTable({ columns, data = [] }) {
                                     key={id}
                                     onClick={() => {
                                       if (cell.column.Header == 'ID') {
-                                        router.push(`/consultant/${cell.value}`)
+                                        router.push(`/partner/${cell.value}`)
                                       }
                                     }}
                                     {...cell.getCellProps()}>
@@ -299,23 +299,23 @@ function CustomTable({ columns, data = [] }) {
 }
 
 
-function ConsultantTable({ data }) {
+function PartnerTable({ data }) {
 
   const columns = React.useMemo(
     () => [
 
 
       {
-        Header: "Consultant ID",
+        Header: "Partner ID",
         accessor: "user_id"
       },
       {
         Header: "Full name",
-        accessor: "username"
+        accessor: "full_name"
       },
       {
-        Header: "Mobile Number",
-        accessor: "mobile_number"
+        Header: "Phone Number",
+        accessor: "phone_number"
       },
       {
         Header: "Email",
@@ -339,4 +339,4 @@ function ConsultantTable({ data }) {
   return <CustomTable columns={columns} data={data} />;
 }
 
-export default ConsultantTable;
+export default PartnerTable;

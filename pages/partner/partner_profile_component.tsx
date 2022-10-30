@@ -16,15 +16,22 @@ import { AiFillStar } from 'react-icons/ai';
 import BusinessOwnerTable from '../business/business_owner_tables';
 import VeridoModal from '../../public/components/modal';
 import { useState, useEffect } from 'react';
-import { getOneConsultant, suspendConsultant, deleteConsultant } from '../../public/services/network';
+import { 
+    getOneConsultant, 
+    suspendConsultant, 
+    deleteConsultant, 
+    getOneAdmin 
+} from '../../public/services/network';
 import { useRouter } from 'next/router';
 import ProfileSkeleton from '../../public/components/Skelotons/Profile.Skeleton';
+import ConsultantTable from '../consultant/consultant_table';
+
 
 type idProps = {
     id: string | any
 }
 
-const ConsultantProfileComponent = ({ id }: idProps) => {
+const PartnerProfileComponent = ({ id }: idProps) => {
     const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false)
     const [action, setAction] = useState('')
@@ -33,8 +40,8 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
     const [isLoading, setIsLoading] = useState(true)
     const [profileData, setProfileData] = useState<any>({})
 
-    const handleGetOneConsultants = async () => {
-        const res = await getOneConsultant(id);
+    const handleGetOneAdmin = async () => {
+        const res = await getOneAdmin(id);
         setProfileData(res)
         setIsLoading(false)
 
@@ -42,7 +49,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
 
     const handleSuspend = async () => {
         await suspendConsultant(id)
-        router.push('/dashboard/consultant')
+        router.push('/dashboard/partner')
     }
 
 
@@ -52,7 +59,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
     }
 
     useEffect(() => {
-        handleGetOneConsultants();
+        handleGetOneAdmin();
     }, [])
     return (
         <Box
@@ -61,7 +68,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
             <VeridoBreadCrump
                 items={[
                     { name: 'Home', to: '/admin', current: true },
-                    { name: 'Consultants', to: '/consultant', current: true },
+                    { name: 'Partners', to: '/partner', current: true },
                     { name: profileData?.username, to: '#', current: false }
                     ,]}
             />
@@ -111,7 +118,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
                                     setIsOpen(true)
                                 }}
                             }
-                            title='Delete Consultant' />
+                            title='Delete partner' />
 
 
                         </VStack>
@@ -161,7 +168,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
                                             setIsOpen(true)
                                         }
                                     }}
-                                    title={profileData.suspended ? 'Re-activate' : 'Suspend'}
+                                    title={profileData?.suspended ? 'Re-activate' : 'Suspend'}
                                     />
                             </Box>
                         </Flex>
@@ -198,8 +205,8 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
                             [
                                 
                                 {
-                                    title: 'Consultant ID',
-                                    value: profileData?.consultant_id
+                                    title: 'Partner ID',
+                                    value: profileData?.user_id
                                 },
                                 {
                                     title: 'Email',
@@ -282,7 +289,7 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
 
                 </Flex>
 
-                <BusinessOwnerTable showExport={false} data={profileData.business}/>
+                <ConsultantTable data={profileData?.consultants}/>
             </>
             )
             :
@@ -291,9 +298,9 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
 
             <VeridoModal
                 isOpen={isOpen}
-                setIsOpen={setIsOpen}
                 modalContent={modalContent}
                 setAction={setAction}
+                setIsOpen={setIsOpen}
                 onClick={() => {
                     if(action == 'suspend'){
                         handleSuspend();
@@ -307,4 +314,4 @@ const ConsultantProfileComponent = ({ id }: idProps) => {
     )
 }
 
-export default ConsultantProfileComponent
+export default PartnerProfileComponent

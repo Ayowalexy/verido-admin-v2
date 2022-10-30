@@ -12,32 +12,30 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select,
 } from "@chakra-ui/react";
-
-import { subscription } from "../services/network";
-import { subProps } from "./types";
+import { createNewBusiness, createNewConsultant } from "../services/network";
+import { businessProps, consultantProps } from "./types";
+import { getUser } from "../utils/utils";
 
 type formProps = {
   open: boolean;
-  sub: subProps;
-  id: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function SubModal({ open, setOpen, sub, id }: formProps) {
+export default function NewConsultantModal({ open, setOpen }: formProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formdata, setFormdata] = useState<subProps>({
-    expires: "",
-    started: "",
-    status: false,
-    type: "",
+  const [formdata, setFormdata] = useState<consultantProps>({
+    username: "",
+    password: "",
+    email: "",
+    mobile_number: "",
   });
 
-  const handleInput = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormdata({
       ...formdata,
@@ -45,26 +43,13 @@ export default function SubModal({ open, setOpen, sub, id }: formProps) {
     });
   };
 
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
-
-  useEffect(() => {
-    setFormdata({
-      expires: sub?.expires,
-      started: sub?.started,
-      status: sub?.status,
-      type: sub?.type,
-    });
-  }, [sub]);
-
-  const handleSave = async () => {
+  const handleCreate = async () => {
     setIsLoading(true);
-    const res = await subscription(id, formdata);
+    const user = await getUser();
+    const res = await createNewConsultant(user?._id, formdata);
     setIsLoading(false);
     setOpen(!open);
   };
-
-  console.log("formdata", formdata.started?.split("/").reverse().join("-"));
 
   return (
     <>
@@ -76,50 +61,58 @@ export default function SubModal({ open, setOpen, sub, id }: formProps) {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update subscription</ModalHeader>
+          <ModalHeader>Create your consultant</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Subscription starts</FormLabel>
+              <FormLabel>Username</FormLabel>
               <Input
-                name="started"
-                type="date"
-                value={formdata.started?.split("/").reverse().join("-")}
+                name="username"
+                placeholder="Username"
+                value={formdata.username?.toString()}
                 onChange={handleInput}
               />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Subscription expires</FormLabel>
+              <FormLabel>Email</FormLabel>
               <Input
-                name="expires"
-                type="date"
-                value={formdata.expires?.split("/").reverse().join("-")}
+                placeholder="Email"
+                name="email"
+                value={formdata.email?.toString()}
                 onChange={handleInput}
               />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Subscription type</FormLabel>
-              <Select
-                name="type"
+              <FormLabel>Mobile Number</FormLabel>
+              <Input
+                name="mobile_number"
+                placeholder="Mobile number"
+                value={formdata.mobile_number?.toString()}
                 onChange={handleInput}
-                placeholder="Select option"
-              >
-                <option value="trial">Trial</option>
-                <option value="Subscribed">Subscribed</option>
-              </Select>
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Password</FormLabel>
+              <Input
+                name="password"
+                placeholder="Password"
+                value={formdata.password?.toString()}
+                onChange={handleInput}
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
             <Button
               isLoading={isLoading}
-              onClick={handleSave}
+              onClick={handleCreate}
               colorScheme="blue"
               mr={3}
             >
-              Save
+              Create
             </Button>
             <Button onClick={() => setOpen(!open)}>Cancel</Button>
           </ModalFooter>

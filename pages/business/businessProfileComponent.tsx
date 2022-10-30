@@ -49,6 +49,8 @@ const BusinessProfileComponent = ({ _id }: idProps) => {
     sector: "",
   });
 
+  console.log('Profile--data', profileData)
+
   const [action, setAction] = useState("");
   const router = useRouter();
   const { reload } = useContext(UserRoleContext);
@@ -73,7 +75,7 @@ const BusinessProfileComponent = ({ _id }: idProps) => {
 
   useEffect(() => {
     userBusiness();
-  }, [reload]);
+  }, []);
   return (
     <Box mb={20}>
       <VeridoBreadCrump
@@ -86,6 +88,7 @@ const BusinessProfileComponent = ({ _id }: idProps) => {
             current: false,
           },
         ]}
+
       />
       {!isLoading ? (
         <>
@@ -262,7 +265,7 @@ const BusinessProfileComponent = ({ _id }: idProps) => {
           </Flex>
           <BusinessOwnerConsultant
             name={profileData?.oneBusiness?.userConsultant?.username}
-            id={profileData?.oneBusiness?.userConsultant?.consultant_id}
+            id={profileData?.oneBusiness?.userConsultant?._id}
             enterprise_name={profileData?.oneBusiness?.business?.name}
             moneyin={{
               totalMoneyIn: profileData?.alldata?.money_in?.totalMoneyIn,
@@ -306,16 +309,16 @@ const BusinessProfileComponent = ({ _id }: idProps) => {
       <VeridoModal
         isOpen={isOpen}
         modalContent={modalContent}
-        buttonProps={{
-          onClick: () => {
-            if (action == "suspend") {
-              handleSuspendOneBusiness();
-            } else {
-              handleDeleteOneBusiness();
-            }
-            router.push("/dashboard/business");
-            setIsOpen(false);
-          },
+        setAction={setAction}
+        setIsOpen={setIsOpen}
+        onClick={() => {
+          if (action == "suspend") {
+            handleSuspendOneBusiness();
+          } else {
+            handleDeleteOneBusiness();
+          }
+          router.push("/dashboard/business");
+          setIsOpen(false);
         }}
       />
       <FormModal

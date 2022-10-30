@@ -48,11 +48,11 @@ export default function FormModal({ open, setOpen, business, id }: formProps) {
 
   useEffect(() => {
     setFormdata({
-        currency: business.currency,
-        currencySymbol: business.currencySymbol,
-        name: business.name,
-        type: business.type,
-        sector: business.sector,
+        currency: business?.currency,
+        currencySymbol: business?.currencySymbol,
+        name: business?.name,
+        type: business?.type,
+        sector: business?.sector,
     })
   }, [business])
 

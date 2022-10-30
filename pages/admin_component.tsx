@@ -11,9 +11,12 @@ import Box_3_1 from "../public/components/Box/Box_3_1";
 import { getAllAnalytics } from "../public/services/network";
 import { useState, useEffect, useContext } from "react";
 import { UserRoleContext } from "../public/context/user.context";
+import { getUser } from "../public/utils/utils";
+import {
+  getAllPartnerAnalytics,
+  getAllConsultantAnalytics,
+} from "../public/services/network";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
 
 const AdminComponent = (props: any): JSX.Element => {
   const theme = useTheme();
@@ -24,22 +27,32 @@ const AdminComponent = (props: any): JSX.Element => {
   } = theme;
   const [data, setData] = useState<object | any>({});
   const { userRole } = useContext(UserRoleContext);
-  const [username, setUsername] = useState<string | undefined>('');
+  const [username, setUsername] = useState<string | undefined>("");
   const [role, setRole] = useState<string | null>("");
 
   const handleGetAnalytics = async () => {
-    const response = await getAllAnalytics();
-    setData(response);
-    console.log(response);
+    const user = await getUser();
+    const userId = user?._id;
+
+    if (role === "Partner") {
+      const res = await getAllPartnerAnalytics(userId);
+      setData(res);
+    } else if (role === "Consultant") {
+      const res = await getAllConsultantAnalytics(userId);
+      setData(res);
+    } else {
+      const response = await getAllAnalytics();
+      setData(response);
+    }
   };
 
   useEffect(() => {
     handleGetAnalytics();
-  }, []);
+  }, [role]);
 
   const getRole = async () => {
     const role = await AsyncStorage.getItem("accountType");
-    const currentUser = await AsyncStorage.getItem('currentUser') || {};
+    const currentUser = (await AsyncStorage.getItem("currentUser")) || {};
     setUsername(JSON.parse(currentUser.toString())?.full_name);
     setRole(role);
     return role;
@@ -99,8 +112,8 @@ const AdminComponent = (props: any): JSX.Element => {
           direct_materials: data?.alldata?.money_in?.DirectMaterials,
         }}
       />
-      <Box_8 
-         data={{
+      <Box_8
+        data={{
           moneyin: data?.alldata?.money_in?.totalMoneyIn,
           overhead: data?.alldata?.overhead?.totalOverhead,
           direct_labour: data?.alldata?.money_in?.DirectLabour,
@@ -118,8 +131,9 @@ const AdminComponent = (props: any): JSX.Element => {
       <Text fontWeight={300} fontSize={14} color={black}>
         Your current status and analytics are here
       </Text>
-      {role == "Consultant" && <Consultant />}
-      {role == "Admin" && <Admin />}
+      {role === "Consultant" && <Consultant />}
+      {role === "Admin" && <Admin />}
+      {role === "Partner" && <Admin />}
     </>
   );
 };
