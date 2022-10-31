@@ -15,6 +15,7 @@ const BusinessComponent = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState([])
  
+    
 
     useEffect(() => {
         (async () => {

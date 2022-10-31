@@ -6,7 +6,6 @@ import BusinessProfileComponent from './businessProfileComponent';
 import { useRouter } from 'next/router';
 
 
-
 const BusinessProfile = () => {
     const router = useRouter();
     const params = router.query;

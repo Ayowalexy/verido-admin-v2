@@ -78,7 +78,7 @@ function CustomTable({ columns, data = [] }) {
             color={theme.colors.brand.black}
             fontSize={20}
           >
-            Consultants
+            Partner
           </Text>
           <Text
             fontWeight={300}
@@ -86,7 +86,7 @@ function CustomTable({ columns, data = [] }) {
             fontSize={16}
             pt={2}
           >
-            List of consultants available
+            List of partners available
           </Text>
         </Box>
         <Flex

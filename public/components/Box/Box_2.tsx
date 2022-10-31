@@ -165,12 +165,12 @@ const Box_2 = ({ data = [] }: dataprops) => {
             />
             {role === "Admin" && (
               <>
-                <CustomButton
+                {/* <CustomButton
                   buttonProps={{
                     mt: 2,
                   }}
                   title="Create Partner account"
-                />
+                /> */}
                 <CustomButton
                   buttonProps={{
                     mt: 2,
