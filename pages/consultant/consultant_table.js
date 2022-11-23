@@ -308,18 +308,41 @@ function ConsultantTable({ data }) {
       {
         Header: "Consultant ID",
         accessor: "user_id"
+
       },
       {
         Header: "Full name",
         accessor: "username"
       },
       {
-        Header: "Mobile Number",
-        accessor: "mobile_number"
+        Header: "Partner",
+        accessor: a => {
+          return (
+            a?.partner?.full_name
+              ? a.partner.full_name
+              : 'No Partner'
+          )
+        }
       },
       {
-        Header: "Email",
-        accessor: "email"
+        Header: "Number of Business",
+        accessor: a => {
+          return (
+            a?.business?.length
+              ? a.business.length
+              : 0
+          )
+        }
+      },
+      {
+        Header: "Date Joined",
+        accessor: a => {
+          return (
+            a?.createdAt
+              ? new Date(a.createdAt).toLocaleDateString()
+              : 'No Partner'
+          )
+        }
       },
       {
         Header: "Status",
@@ -329,12 +352,11 @@ function ConsultantTable({ data }) {
         Header: "ID",
         accessor: "_id"
       },
-     
+
     ],
 
     []
   );
-
 
   return <CustomTable columns={columns} data={data} />;
 }

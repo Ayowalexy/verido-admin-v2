@@ -78,7 +78,7 @@ const BusinessOwnerConsultant = ({ name, id, enterprise_name, moneyin, moneyout,
             </Text>
           )}
           <CustomButton
-            title="Assign/Change"
+            title="Assign Consultant"
             buttonProps={{
               borderRadius: 40,
               width: 160,

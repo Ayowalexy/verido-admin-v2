@@ -26,11 +26,11 @@ const admin_navigation = [
     link: "/dashboard/partners",
     icon: RiUserSettingsLine,
   },
-  {
-    label: "Experts",
-    link: "/dashboard/experts",
-    icon: BiUserCheck,
-  },
+  // {
+  //   label: "Experts",
+  //   link: "/dashboard/experts",
+  //   icon: BiUserCheck,
+  // },
   {
     label: "All Users",
     link: "/all-user",
@@ -77,11 +77,11 @@ export const partner_navigation = [
     link: "/dashboard/consultant",
     icon: GrUserNew,
   },
-  {
-    label: "Experts",
-    link: "/dashboard/experts",
-    icon: BiUserCheck,
-  },
+  // {
+  //   label: "Experts",
+  //   link: "/dashboard/experts",
+  //   icon: BiUserCheck,
+  // },
   {
     label: "All Users",
     link: "/all-user",
@@ -100,11 +100,11 @@ export const expert_navigation = [
     link: "/admin",
     icon: AiOutlineHome,
   },
-  {
-    label: "Experts",
-    link: "/dashboard/experts",
-    icon: BiUserCheck,
-  },
+  // {
+  //   label: "Experts",
+  //   link: "/dashboard/experts",
+  //   icon: BiUserCheck,
+  // },
   {
     label: "All Users",
     link: "/all-user",

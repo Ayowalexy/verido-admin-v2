@@ -42,7 +42,9 @@ const Box_8 = ({ data }: dataProps_) => {
     </Flex>
   );
   return (
-    <Flex
+    <VStack width='100%' align='align-start' mt={'40px'}>
+      <Text>All Business money flow</Text>
+      <Flex
       width="100%"
       height={466}
       borderRadius={7}
@@ -58,6 +60,7 @@ const Box_8 = ({ data }: dataProps_) => {
       {/* <Labour />
             <Material /> */}
     </Flex>
+    </VStack>
   );
 };
 

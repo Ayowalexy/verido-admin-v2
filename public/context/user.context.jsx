@@ -5,13 +5,17 @@ export const UserRoleContext = createContext({
     setUserRole: (args) => null,
 
     reload: false,
-    setReload: (args) => null
+    setReload: (args) => null,
+
+    userId: '',
+    setUserId: (args) => null
 })
 
 export const UserRoleProvider = ({children}) => {
     const [userRole, setUserRole] = useState('');
     const [reload, setReload] = useState(false);
-    const value = { userRole, setUserRole, reload, setReload };
+    const [userId, setUserId] = useState("")
+    const value = { userRole, setUserRole, reload, setReload, userId, setUserId };
 
     return <UserRoleContext.Provider value={value}>{children}</UserRoleContext.Provider>
 }

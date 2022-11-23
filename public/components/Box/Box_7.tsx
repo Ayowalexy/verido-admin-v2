@@ -31,7 +31,7 @@ const Box_7 = ({data}: dataProps) => {
             <Flex
                 justify='space-between'
             >
-                <Text>Money In VS Money Out</Text>
+                <Text>All Users Money In VS Money Out</Text>
                 <Flex
                     flexDir='column'
                     mb={10}

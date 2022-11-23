@@ -43,12 +43,13 @@ const Box_1 = ({ data }: dataProps) => {
               value={(Number(data?.no_of_subscribers?.no_of_subscribed) / 100) || 0}
             />
           </Card>
-          <Card number={data?.no_of_consultants} card_type="Active Consultants">
+          <Card number={data?.no_of_consultants} card_type="Partners">
             <Active
               type="consultante"
               value={(Number(data?.no_of_consultants) / 100) || 0}
             />
           </Card>
+          
         </Flex>
         <Flex
           flexGrow={1}
@@ -73,9 +74,9 @@ const Box_1 = ({ data }: dataProps) => {
           </Box>
           <Box>
             {[
-              { type: "Trials", color: yearly },
-              { type: "Subscribed", color: quarterly },
-              { type: "Expired", color: monthly },
+              { type: "Trials", color: yearly, number: data?.no_of_subscribers?.no_of_trials },
+              { type: "Subscribed", color: quarterly, number: data?.no_of_subscribers?.no_of_subscribed },
+              { type: "Expired", color: monthly, number: data?.no_of_subscribers?.no_of_expired },
             ].map((element, idx) => (
               <HStack key={idx}>
                 <Box
@@ -85,7 +86,7 @@ const Box_1 = ({ data }: dataProps) => {
                   bgColor={element.color}
                 />
                 <Text color={black} fontSize={12} fontWeight={700}>
-                  {element.type}
+                  {element.type} - {element.number}
                 </Text>
               </HStack>
             ))}
@@ -96,6 +97,7 @@ const Box_1 = ({ data }: dataProps) => {
                 type: "Trials",
                 color: yearly,
                 percentage: data?.no_of_subscribers?.percent_of_trials + '%',
+                num: data?.no_of_subscribers
               },
               {
                 type: "Subscribed",

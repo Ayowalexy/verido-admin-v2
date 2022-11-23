@@ -23,6 +23,7 @@ import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
 import { useContext } from 'react';
 import { UserRoleContext } from '../../public/context/user.context';
+import { useAppContext } from '../../public/context/app.context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -37,7 +38,8 @@ const Login = () => {
     const router = useRouter();
     const [checked, setChecked] = useState(false);
     const { colors: { brand: { primary, black, yoda } } } = theme;
-    const { setUserRole } = useContext(UserRoleContext)
+    const { setUserRole, setUserId } = useContext(UserRoleContext);
+    const { setUser } = useAppContext();
 
     const { isLoading , mutate} = useMutation(login, {
         onSuccess: async (data: any) => {
@@ -45,7 +47,9 @@ const Login = () => {
             if(data?.status == 200 || data?.status ==  201){
                 await AsyncStorage.setItem("userDetails", JSON.stringify({token: data?.data?.token}))
                 const accountType = data?.data?.role;
+                const id = data?.data?.user?._id;
                 await AsyncStorage.setItem('currentUser', JSON.stringify(data?.data?.user))
+                setUserId(id);
                 setUserRole(accountType);
                 await AsyncStorage.setItem('accountType', accountType)
                 toast({

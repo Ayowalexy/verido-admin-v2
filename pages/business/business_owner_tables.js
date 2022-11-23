@@ -350,16 +350,7 @@ function BusinessOwnerTable({ data, showExport }) {
               : 'No name'
         )
       },
-      {
-        Header: "Mobile Number",
-        accessor: a => (
-          a.mobile_number
-            ? a.mobile_number
-            : a.phone_number
-              ? a.phone_number
-              : 'No Phone number'
-        )
-      },
+      
       {
         Header: "Account type",
         accessor: a => (
@@ -381,8 +372,20 @@ function BusinessOwnerTable({ data, showExport }) {
         )
       },
       {
-        Header: "email",
-        accessor: "email"
+        Header: "Consultant",
+        accessor: a => (
+          a?.consultant?.length
+            ? a?.consultant[0].username
+            : 'No consultant'
+        )
+      },
+      {
+        Header: "Partner",
+        accessor: a => (
+          a?.consultant[0]?.partner
+            ? a?.consultant[0]?.partner?.full_name
+            : 'No Partner'
+        )
       },
       {
         Header: "ID",

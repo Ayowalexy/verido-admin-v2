@@ -13,7 +13,7 @@ const BusinessProfile = () => {
     console.log('Router', params?.id)
     return (
         <Layout active='Business Owners'>
-            <BusinessProfileComponent _id={params?.id} />
+            <BusinessProfileComponent _id={params?.id || '63357146124db540ce2eb2af'} />
         </Layout>
     )
 }

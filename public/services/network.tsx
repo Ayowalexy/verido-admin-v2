@@ -263,6 +263,18 @@ const getAllConsultantAnalytics = async (id: string) => {
   return response;
 };
 
+const assignPartner = async (id: string, admin: string) => {
+  try {
+    const response = await httpGet(
+      urls.CONSULTANT.assign_partner.concat(`/${id}/${admin}`),
+      true,
+    );
+    return response;
+  } catch (e) {
+    return e;
+  }
+}
+
 
 export {
   register,
@@ -290,5 +302,6 @@ export {
   getPartnerConsultants,
   getAllUser,
   getAllConsultantBusiness,
-  getAllConsultantAnalytics
+  getAllConsultantAnalytics,
+  assignPartner
 };

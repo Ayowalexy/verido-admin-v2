@@ -36,6 +36,8 @@ const Box_2 = ({ data = [] }: dataprops) => {
     })();
   }, []);
 
+  console.log('recent', data.recent_subscription)
+
   return (
     <Flex gap={10} mt={10}>
       <Box
@@ -62,11 +64,13 @@ const Box_2 = ({ data = [] }: dataprops) => {
                 <Th>Business Owners</Th>
                 <Th>Amount</Th>
                 <Th>Status</Th>
+                <Th>Consultant</Th>
+                <Th>Partner</Th>
                 <Th>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {data?.length ? (
+              {data?.recent_subscription?.length ? (
                 <>
                   {data?.recent_subscription?.map((element: any, idx: any) => {
                     const date = new Date(element.dateJoined);
@@ -121,6 +125,8 @@ const Box_2 = ({ data = [] }: dataprops) => {
                             </Box>
                           </Flex>
                         </Td>
+                        <Td>{element?.consultant[0]?.username || 'No consultant'}</Td>
+                        <Td>{element?.consultant[0]?.partner?.full_name || 'No Partner'}</Td>
                         <Td>{element?.action}</Td>
                       </Tr>
                     );

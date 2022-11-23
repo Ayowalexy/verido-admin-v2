@@ -19,7 +19,8 @@ const urls = {
         consultants: `${url}/consultant`,
         add_consultant: `${url}/add-consultant`,
         create_consultant: `${url}/create-consultant`,
-        get_business: `${url}/consultant-business`
+        get_business: `${url}/consultant-business`,
+        assign_partner: `${url}/assign-partner`
 
     },
     ANALYTICS: {

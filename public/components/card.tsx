@@ -59,6 +59,7 @@ const Card = ({
             <Text
                 fontWeight={300}
                 fontSize={14}
+                textAlign='center'
                 color={black}
             >
                 {card_type}
