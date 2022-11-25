@@ -138,6 +138,7 @@ const Chat = () => {
                 fontSize="1.2em"
               >
                  <BsSearch />
+                 
               </InputLeftElement>
               <Input placeholder="Search" height={"50px"} />
             </InputGroup>
