@@ -43,6 +43,7 @@
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
     "@types/node": "18.0.4",
+    "@types/pubnub": "^7.2.1",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "@types/react-table": "^7.7.12",

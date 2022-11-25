@@ -3537,10 +3537,10 @@
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   "version" "15.7.5"
 
-"@types/pubnub@^7.0.0":
-  "integrity" "sha512-Ui58Xsn8/4Ty1hFW0t91ED6FKezzipjO+GEJviOdJdqp817+I5/WMfo5zBsDfjbZQWMqcdrktMauKpUqiIF1wA=="
-  "resolved" "https://registry.npmjs.org/@types/pubnub/-/pubnub-7.2.0.tgz"
-  "version" "7.2.0"
+"@types/pubnub@^7.0.0", "@types/pubnub@^7.2.1":
+  "integrity" "sha512-30rjsQkoXBSOCA+h1NpmltsmI8MUWTYUkzm4IEEF4R9/RQ8xCTMTL5ewFcxq+16w3lmUz+ipLuoGOZrXFQa8DA=="
+  "resolved" "https://registry.npmjs.org/@types/pubnub/-/pubnub-7.2.1.tgz"
+  "version" "7.2.1"
 
 "@types/q@^1.5.1":
   "integrity" "sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ=="
