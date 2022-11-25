@@ -136,8 +136,9 @@ const Chat = () => {
               <InputLeftElement
                 pointerEvents="none"
                 fontSize="1.2em"
-                children={<BsSearch />}
-              />
+              >
+                 <BsSearch />
+              </InputLeftElement>
               <Input placeholder="Search" height={"50px"} />
             </InputGroup>
           </Box>
@@ -172,6 +173,7 @@ const Chat = () => {
                       onClick={() => setSelectedUser(elememt)}
                       full_name={elememt.full_name}
                       _id={elememt._id}
+                      key={element._id}
                       email={elememt.email}
                     />
                   ))}
@@ -182,6 +184,7 @@ const Chat = () => {
                       onClick={() => setSelectedUser(elememt)}
                       full_name={elememt.username}
                       _id={elememt._id}
+                      key={element._id}
                       email={elememt.email}
                     />
                   ))}
@@ -190,7 +193,7 @@ const Chat = () => {
                   {partners.map((elememt) => (
                     <ChartBox
                       onClick={() => setSelectedUser(elememt)}
-
+                      key={element._id}
                       full_name={elememt.full_name}
                       _id={elememt._id}
                       email={elememt.email}

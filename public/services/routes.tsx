@@ -31,6 +31,7 @@ const urls = {
     SUBSCRIPTION: {
         subscription: `${url}/subscription`
     },
+    
     PARTNERS: {
         all_partners: `${url}/partners`,
         get_business: `${url}/partner-business`,
