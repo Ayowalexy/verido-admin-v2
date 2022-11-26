@@ -174,7 +174,7 @@ const Chat = () => {
                       onClick={() => setSelectedUser(elememt)}
                       full_name={elememt.full_name}
                       _id={elememt._id}
-                      key={element._id}
+                      key={elememt._id}
                       email={elememt.email}
                     />
                   ))}
@@ -185,7 +185,7 @@ const Chat = () => {
                       onClick={() => setSelectedUser(elememt)}
                       full_name={elememt.username}
                       _id={elememt._id}
-                      key={element._id}
+                      key={elememt._id}
                       email={elememt.email}
                     />
                   ))}
@@ -194,7 +194,7 @@ const Chat = () => {
                   {partners.map((elememt) => (
                     <ChartBox
                       onClick={() => setSelectedUser(elememt)}
-                      key={element._id}
+                      key={elememt._id}
                       full_name={elememt.full_name}
                       _id={elememt._id}
                       email={elememt.email}
