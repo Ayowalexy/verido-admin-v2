@@ -275,6 +275,33 @@ const assignPartner = async (id: string, admin: string) => {
   }
 }
 
+const getAllVideos = async() => {
+  try {
+    const response = await httpGet(
+      urls.ADMIN.video,
+      true
+    )
+
+    return response
+  } catch(e){
+    return e
+  }
+}
+
+const addVideos = async(vidoeID: string, category: string, title: string) => {
+  try {
+    const response = await httpPost(
+      urls.ADMIN.video,
+      true,
+      { vidoeID, category, title}
+    )
+
+    return response
+  } catch(e){
+    return e
+  }
+}
+
 
 export {
   register,
@@ -303,5 +330,7 @@ export {
   getAllUser,
   getAllConsultantBusiness,
   getAllConsultantAnalytics,
-  assignPartner
+  assignPartner,
+  addVideos, 
+  getAllVideos
 };

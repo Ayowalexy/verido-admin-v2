@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:8080'
 // const liveUrl = 'https://verido-v4.herokuapp.com'
-const liveUrl = 'https://verido-admin-server.herokuapp.com'
+const liveUrl = 'https://sea-lion-app-owyzp.ondigitalocean.app' //'https://verido-admin-server.herokuapp.com'
 
 const url = liveUrl;
 
@@ -39,7 +39,8 @@ const urls = {
     },
     ADMIN: {
         get_one_user: `${url}/admin`,
-        all_user: `${url}/all-user`
+        all_user: `${url}/all-user`,
+        video: `${url}/video`
     }
 }
 

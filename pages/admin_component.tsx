@@ -17,6 +17,7 @@ import {
   getAllConsultantAnalytics,
 } from "../public/services/network";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Videos from "../public/components/Videos";
 
 const AdminComponent = (props: any): JSX.Element => {
   const theme = useTheme();
@@ -83,6 +84,7 @@ const AdminComponent = (props: any): JSX.Element => {
           direct_materials: data?.alldata?.money_in?.DirectMaterials,
         }}
       />
+       <Videos />
       <Box_8
         data={{
           moneyin: data?.alldata?.money_in?.totalMoneyIn,
@@ -91,6 +93,7 @@ const AdminComponent = (props: any): JSX.Element => {
           direct_materials: data?.alldata?.money_in?.DirectMaterials,
         }}
       />
+     
     </>
   );
 
