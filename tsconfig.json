@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/dashboard/chats/labour.js", "pages/dashboard/chats/material.js", "pages/consultant/consultant_table.tsx", "pages/business/business_owner_tables.js", "pages/business/chart.js", "public/components/csv.js", "pages/dashboard/chat.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/dashboard/chats/labour.js", "pages/dashboard/chats/material.js", "pages/consultant/consultant_table.tsx", "pages/business/business_owner_tables.js", "pages/business/chart.js", "public/components/csv.js", "pages/dashboard/chat.js", "public/components/Videos/VideoModal.js"],
   "exclude": ["node_modules"]
 }

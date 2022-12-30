@@ -15,29 +15,29 @@ import {
 import { addVideos } from "../../services/network";
 import React, { ChangeEvent, useState } from "react";
 
-interface vidoeInterface {
-  open: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setVideos: React.Dispatch<React.SetStateAction<[]>>;
-}
+// interface vidoeInterface {
+//   open: boolean;
+//   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+//   setVideos: React.Dispatch<React.SetStateAction<[]>>;
+// }
 
-interface addvidoeinterface {
-    title: string;
-    category: string;
-    vidoeID: string;
-}
+// interface addvidoeinterface {
+//     title: string;
+//     category: string;
+//     vidoeID: string;
+// }
 
-const AddVidoeModal = ({ open, setIsOpen, setVideos }: vidoeInterface) => {
+const AddVidoeModal = ({ open, setIsOpen, setVideos }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false)
 
-  const [detail, setDetails] = useState<addvidoeinterface>({
+  const [detail, setDetails] = useState({
     title: '',
     category: "",
     vidoeID: ''
   });
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event) => {
     const { value, name } = event.target;
     setDetails({
         ...detail, 
