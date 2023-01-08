@@ -96,18 +96,18 @@ const Box_1 = ({ data }: dataProps) => {
               {
                 type: "Trials",
                 color: yearly,
-                percentage: data?.no_of_subscribers?.percent_of_trials + '%',
+                percentage: data?.no_of_subscribers?.percent_of_trials ? data?.no_of_subscribers?.percent_of_trials + '%' : 0,
                 num: data?.no_of_subscribers
               },
               {
                 type: "Subscribed",
                 color: quarterly,
-                percentage: data?.no_of_subscribers?.percent_of_subscribed + '%',
+                percentage: data?.no_of_subscribers?.percent_of_subscribed ? data?.no_of_subscribers?.percent_of_subscribed + '%' : 0,
               },
               {
                 type: "Expired",
                 color: monthly,
-                percentage: data?.no_of_subscribers?.percent_of_expired + '%',
+                percentage: data?.no_of_subscribers?.percent_of_expired ? data?.no_of_subscribers?.percent_of_expired + '%' : 0,
               },
             ].map((element, idx) => (
               <Flex
@@ -123,7 +123,7 @@ const Box_1 = ({ data }: dataProps) => {
                 bgColor={element.color}
               >
                 <Text color={white} fontSize={12}>
-                  {element.percentage}
+                  {element.percentage || 0}
                 </Text>
               </Flex>
             ))}
